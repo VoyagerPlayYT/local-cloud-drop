@@ -68,12 +68,16 @@ async def index_page(request: Request):
     port = 8005
     network_url = f"http://{local_ip}:{port}"
     qr_data = generate_qr_base64(network_url)
-    return templates.TemplateResponse("index.html", {
-        "request": request,
-        "local_ip": local_ip,
-        "network_url": network_url,
-        "qr_code": qr_data
-    })
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={
+            "request": request,
+            "local_ip": local_ip,
+            "network_url": network_url,
+            "qr_code": qr_data
+        }
+    )
 
 
 @app.get("/api/files")
